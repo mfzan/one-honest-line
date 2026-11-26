@@ -31,6 +31,9 @@ def main() -> None:
         )
     if not LINE.strip():
         raise SystemExit("entry line must not be only whitespace")
+    if "\n" in LINE or "\r" in LINE:
+        raise SystemExit("entry must be a single line")
+    LINE.encode("utf-8")  # raises if the line is not valid UTF-8 text
 
     target = os.environ.get("OUTPUT_PATH") or "/output/entry.txt"
     parent = os.path.dirname(target)
